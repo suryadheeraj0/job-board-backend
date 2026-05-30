@@ -38,6 +38,16 @@ public class ApplicationController {
         return ResponseEntity.ok(applicationService.getAllApplications());
     }
 
+    @GetMapping("/job/{jobId}")
+    public ResponseEntity<List<ApplicationResponse>> getApplicationsByJob(@PathVariable Long jobId) {
+        return ResponseEntity.ok(applicationService.getApplicationsByJob(jobId));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ApplicationResponse>> getApplicationsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(applicationService.getApplicationsByUser(userId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ApplicationResponse> getApplicationById(@PathVariable Long id) {
         return ResponseEntity.ok(applicationService.getApplicationById(id));

@@ -60,6 +60,20 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public List<ApplicationResponse> getApplicationsByJob(Long jobId) {
+        return applicationRepository.findByJobId(jobId).stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ApplicationResponse> getApplicationsByUser(Long userId) {
+        return applicationRepository.findByUserId(userId).stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ApplicationResponse getApplicationById(Long id) {
         Application application = findApplicationById(id);
         return toResponse(application);
@@ -133,12 +147,6 @@ public class ApplicationServiceImpl implements ApplicationService {
             throw new InvalidFileException("Invalid resume file name");
         }
 
-        String extension = "";
-        int lastDot = originalFileName.lastIndexOf('.');
-        if (lastDot >= 0) {
-            extension = originalFileName.substring(lastDot);
-        }
-
         String generatedFileName = System.currentTimeMillis() + "_" + originalFileName;
         Path targetLocation = uploadDirectory.resolve(generatedFileName);
         try {
@@ -163,7 +171,11 @@ public class ApplicationServiceImpl implements ApplicationService {
                 application.getResumePath(),
                 application.getCoverLetter(),
                 application.getStatus(),
-                application.getAppliedAt()
+                application.getAppliedAt(),
+                application.getJob().getTitle(),
+                application.getJob().getCompany(),
+                application.getUser().getName(),
+                application.getUser().getEmail()
         );
     }
 }

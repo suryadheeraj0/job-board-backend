@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface ApplicationService {
     List<ApplicationResponse> getAllApplications();
+    List<ApplicationResponse> getApplicationsByJob(Long jobId);
+    List<ApplicationResponse> getApplicationsByUser(Long userId);
     ApplicationResponse getApplicationById(Long id);
     ApplicationResponse createApplication(Long jobId, Long userId, String coverLetter, MultipartFile resume);
     ApplicationResponse updateApplication(Long id, ApplicationUpdateRequest request);

@@ -18,4 +18,8 @@ public class ApplicationResponse {
     private String coverLetter;
     private ApplicationStatus status;
     private LocalDateTime appliedAt;
+    private String jobTitle;
+    private String company;
+    private String candidateName;
+    private String candidateEmail;
 }
